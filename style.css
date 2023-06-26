@@ -2,10 +2,10 @@
     font-family: 'Roboto';
     font-weight: 400;
     src: url('assets/fonts/roboto-light-webfont.woff2') format('woff2'),
-         url('assets/fonts/roboto-light-webfont.woff2') format('woff');
+        url('assets/fonts/roboto-light-webfont.woff2') format('woff');
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -20,8 +20,8 @@
     --bg-color: #020312;
     --text-color: #fff;
     --main-color: #eb4a4a;
-    --second-color:gray;
-    --other-color:#12141c;
+    --second-color: gray;
+    --other-color: #12141c;
     --h1-font: 3.5rem;
     --h2-font: 3rem;
     --p-font: 1rem;
@@ -31,12 +31,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;/*
+    justify-content: center;
+    /*
     background: var(--bg-color);
     color: var(--text-color);*/
 }
 
-h1{
+h1 {
     margin-block: 50px;
     font-size: var(--h1-font);
 }
@@ -50,7 +51,7 @@ h1{
     padding: 25px;
 }
 
-.task{
+.task {
     background: var(--text-color);
     width: auto;
     min-width: 250px;
@@ -78,9 +79,8 @@ h1{
     margin: 3px;
     border: 1px solid black;
     display: grid;
-    grid-template: 
-        "text text text" minmax(50px, auto)
-        "one two three" auto / 1fr 1fr 1fr;
+    grid-template:
+        "text text text" minmax(50px, auto) "one two three" auto / 1fr 1fr 1fr;
     gap: 2px;
 }
 
@@ -92,21 +92,22 @@ h1{
     display: none;
 }
 
-button .one{
+button .one {
     grid-area: one;
 }
 
-button .two{
+button .two {
     grid-area: two;
 }
 
-button .three{
+button .three {
     grid-area: three;
 }
 
 .zero {
     overflow: hidden;
 }
+
 .zero.hidden {
     display: none;
 }
@@ -130,13 +131,13 @@ textarea.hidden {
 }
 
 .material-icons {
-    pointer-events: none;
+    .material-icons { pointer-events: none;  width: 27px; }
     width: 27px;
 }
 
 .material-icons.hidden {
     width: 27px;
-    display : none;
+    display: none;
 }
 
 .svg {
@@ -158,7 +159,7 @@ button.hidden {
     display: none;
 }
 
-.addTaskBeforeHere{
+.addTaskBeforeHere {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -167,7 +168,7 @@ button.hidden {
     height: auto;
 }
 
-div.addTaskBeforeHere #taskTitle{
+div.addTaskBeforeHere #taskTitle {
     margin-inline-end: 5px;
     padding-block: 5px;
     padding-inline-start: 5px;
@@ -175,14 +176,14 @@ div.addTaskBeforeHere #taskTitle{
     border: 1px solid gray;
 }
 
-button.add{
+button.add {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-inline-end: 5px;
 }
 
-.addSymbol{
+.addSymbol {
     display: inline-block;
     padding-inline: 5px;
     font-weight: 700;
