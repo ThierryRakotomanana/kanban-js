@@ -5,6 +5,8 @@
 # Contributing
 
 Thanks for your interest in contributing! Contributions are always welcome and appreciated. If you're looking to make your first contribution or improve this project, please follow the steps outlined below
+> **This note is very important:**
+> Before making any contribution or changes, please check the list of issues to see if it is already assigned to someone. If it is not, then start a discussion or make a request to be assigned to the issue by leaving a comment on the issue.
 
 ## Issue Tracking
 
