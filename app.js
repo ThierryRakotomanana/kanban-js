@@ -1,99 +1,116 @@
-const buttonAddNewTask = document.querySelector('.add')
-const taskTitle = document.querySelector('#taskTitle')
-const addTaskBeforeHere = document.querySelector('#addTaskBeforeHere')
-const boxContainTaskComplete = document.querySelector('.task.complete')
-const listTaskToDo = document.querySelector('.list-items.toDo')
-const listTaskComplete = document.querySelector('.list-items.complete')
-const iconEdit = `<span class="material-icons">edit</span> <span class="material-icons hidden">pending</span>`
-const iconDelete = `<span class="material-icons">delete_outline</span>`
-const iconComplete = `<span class="material-icons">check_circle_outline</span>`
+const buttonAddNewTask = document.querySelector('.add');
+const taskTitle = document.querySelector('#taskTitle');
+const addTaskBeforeHere = document.querySelector('#addTaskBeforeHere');
+const boxContainTaskComplete = document.querySelector('.task.complete');
+const listTaskToDo = document.querySelector('.list-items.toDo');
+const listTaskComplete = document.querySelector('.list-items.complete');
+const iconEdit = `<span class="material-icons">edit</span> <span class="material-icons hidden">pending</span>`;
+const iconDelete = `<span class="material-icons">delete_outline</span>`;
+const iconComplete = `<span class="material-icons">check_circle_outline</span>`;
 
-
-boxContainTaskComplete.classList.add('hidden')
+boxContainTaskComplete.classList.add('hidden');
 
 let taskToDrop;
 
-const dragstart_handler = (ev) => taskToDrop = ev.target
+const dragstart_handler = (ev) => (taskToDrop = ev.currentTarget);
 
 const dragover_handler = (ev) => {
-    ev.preventDefault();
-    ev.dataTransfer.dropEffect = "move";
-}
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = 'move';
+};
 
 const drop_handler = (ev) => {
-    ev.preventDefault()
-    ev.target.parentElement.appendChild(taskToDrop);
-}
+  ev.preventDefault();
+  ev.currentTarget.parentElement.appendChild(taskToDrop);
+};
 
-const removeClassHidden = (element) => element.classList.remove('hidden')
+const removeClassHidden = (element) => element.classList.remove('hidden');
 
-const addClassHidden= (element) => element.classList.add('hidden')
+const addClassHidden = (element) => element.classList.add('hidden');
 
-const hiddenTwofirstElement = (params) => params.forEach((element, index) => index < 2 ? addClassHidden(element) : removeClassHidden(element));
+const hiddenTwofirstElement = (params) =>
+  params.forEach((element, index) =>
+    index < 2 ? addClassHidden(element) : removeClassHidden(element)
+  );
 
 const editTitleTask = (ev) => {
-    const titleTask = ev.target.previousElementSibling.firstElementChild
-    const iconEdit = ev.target.firstElementChild
-    if(iconEdit.classList.contains('hidden')) {
-        titleTask.innerHTML = titleTask.nextElementSibling.value
-        hiddenTwofirstElement([iconEdit.nextElementSibling, titleTask.nextElementSibling, titleTask, iconEdit])
-    } else {
-        titleTask.nextElementSibling.value = titleTask.innerHTML
-        hiddenTwofirstElement([titleTask, iconEdit, iconEdit.nextElementSibling, titleTask.nextElementSibling])
-    }
-}
+  const titleTask = ev.currentTarget.previousElementSibling.firstElementChild;
+  const iconEdit = ev.currentTarget.firstElementChild;
+  if (iconEdit.classList.contains('hidden')) {
+    titleTask.innerHTML = titleTask.nextElementSibling.value;
+    hiddenTwofirstElement([
+      iconEdit.nextElementSibling,
+      titleTask.nextElementSibling,
+      titleTask,
+      iconEdit,
+    ]);
+  } else {
+    titleTask.nextElementSibling.value = titleTask.innerHTML;
+    hiddenTwofirstElement([
+      titleTask,
+      iconEdit,
+      iconEdit.nextElementSibling,
+      titleTask.nextElementSibling,
+    ]);
+  }
+};
 
 const moveToComplete = (ev) => {
-    listTaskComplete.append(ev.target.parentElement);
-    hiddenTwofirstElement([ev.target, ev.target.previousElementSibling.previousElementSibling, boxContainTaskComplete])
-}
+  listTaskComplete.append(ev.currentTarget.parentElement);
+  hiddenTwofirstElement([
+    ev.currentTarget,
+    ev.currentTarget.previousElementSibling.previousElementSibling,
+    boxContainTaskComplete,
+  ]);
+};
 
 const deleteTask = (ev) => {
-    ev.target.parentElement.remove()
-    if(listTaskComplete.childElementCount === 0 ) boxContainTaskComplete.classList.add('hidden')
-}
+  ev.currentTarget.parentElement.remove();
+  if (listTaskComplete.childElementCount === 0)
+    boxContainTaskComplete.classList.add('hidden');
+};
 
 const createElement = (element, className, id = 0) => {
-    const newElement = document.createElement(element)
-    newElement.classList.add( element === 'button' || element === 'span'? id :  className)
-    if(element.includes('span') || element.includes('button') ) newElement.innerHTML = className
-    return newElement
-}
+  const newElement = document.createElement(element);
+  newElement.classList.add(element === 'button' || element === 'span' ? id : className);
+  if (element.includes('span') || element.includes('button')) newElement.innerHTML = className;
+  return newElement;
+};
 
 const createNewTask = () => {
-    if(taskTitle.value != '') {
-        const li = createElement('li', 'list-item')
-        const containTaskTitle = createElement('div', 'contain')
-        const span = createElement('span', taskTitle.value, 'zero')
-        const textarea = createElement('textarea', "hidden")
-        const buttonEdit = createElement('button', iconEdit, 'one')
-        const buttonDelete = createElement('button', iconDelete, 'two')
-        const buttonSave = createElement('button', iconComplete, 'three')
+  if (taskTitle.value != '') {
+    const li = createElement('li', 'list-item');
+    const containTaskTitle = createElement('div', 'contain');
+    const span = createElement('span', taskTitle.value, 'zero');
+    const textarea = createElement('textarea', 'hidden');
+    const buttonEdit = createElement('button', iconEdit, 'one');
+    const buttonDelete = createElement('button', iconDelete, 'two');
+    const buttonSave = createElement('button', iconComplete, 'three');
 
+    // disposition of all element in the task and default value
+    containTaskTitle.append(span, textarea);
+    li.append(containTaskTitle, buttonEdit, buttonDelete, buttonSave);
+    listTaskToDo.insertBefore(li, addTaskBeforeHere);
 
-        // disposition of all element in the task and default value
-        containTaskTitle.append(span, textarea)
-        li.append(containTaskTitle, buttonEdit, buttonDelete, buttonSave)
-        listTaskToDo.insertBefore(li, addTaskBeforeHere)
+    // task functionality: delete, complete, and edit
+    buttonDelete.addEventListener('click', deleteTask);
+    buttonSave.addEventListener('click', moveToComplete);
+    buttonEdit.addEventListener('click', editTitleTask);
 
-        // task functionnality : delete, complete and edit
-        buttonDelete.addEventListener('click', deleteTask)
-        buttonSave.addEventListener('click', moveToComplete)
-        buttonEdit.addEventListener('click', editTitleTask)
-        
-        // textarea auto sizing
-        textarea.style.cssText = `overflow-y: hidden`;
-        textarea.addEventListener("input", e => {
-            textarea.style.height = "auto";
-            let scHeight = e.target.scrollHeight;
-            textarea.style.height =`${scHeight}px`;
-        })
-        // test of the draggable functionnality
-        li.setAttribute("draggable","true")
+    // textarea auto sizing
+    textarea.style.cssText = `overflow-y: hidden`;
+    textarea.addEventListener('input', (e) => {
+      textarea.style.height = 'auto';
+      let scHeight = e.target.scrollHeight;
+      textarea.style.height = `${scHeight}px`;
+    });
 
-        // clear input after click
-        taskTitle.value = ''
-    }
-}
+    // test of the draggable functionality
+    li.setAttribute('draggable', 'true');
 
-buttonAddNewTask.addEventListener('click', createNewTask)
+    // clear input after click
+    taskTitle.value = '';
+  }
+};
+
+buttonAddNewTask.addEventListener('click', createNewTask);
