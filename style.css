@@ -13,7 +13,6 @@
     text-decoration: none;
     list-style: none;
     scroll-behavior: smooth;
-    transition: all 0.5s ease;
 }
 
 :root {
@@ -26,6 +25,9 @@
     --p-font: 1rem;
 }
 
+/* Absolutely positoined
+elements need to have their
+own transition property */
 body {
     display: flex;
     flex-direction: column;
@@ -33,6 +35,13 @@ body {
     justify-content: center;
     background: var(--bg-color);
     color: var(--text-color);
+    transition: all 0.5s ease;
+}
+
+body.active {
+    --bg-color: rgb(231, 231, 231);
+    --text-color: #000000e0;
+    --main-color: rgb(207, 207, 207);
 }
 
 h1{
@@ -87,7 +96,7 @@ h1{
     border: 1px solid var(--bg-color);
     border-radius: .4rem;
     display: grid;
-    grid-template: 
+    grid-template:
         "text text text" minmax(50px, auto)
         "one two three" auto / 1fr 1fr 1fr;
     gap: 2px;
@@ -198,4 +207,43 @@ button.add{
     padding-inline: 5px;
     font-weight: 700;
     font-size: var(--p-font);
+}
+
+/* Theme Switch ________________________________________ */
+.theme {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+.theme p {
+    margin-bottom: 10px;
+    font-size: var(--p-font);
+}
+.themeSwitch {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--main-color);
+}
+.themeSwitch div:nth-of-type(1) {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2px;
+    color: var(--bg-color);
+}
+.themeSwitch div:nth-of-type(2) {
+    cursor: pointer;
+    position: absolute;
+    top: 2.5px;
+    left: 2px;
+    background-color: var(--bg-color);
+    height: 35px;
+    width: 35px;
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+.themeSwitch.active div:nth-of-type(2) {
+    left: calc(98% - 35px);
 }

@@ -1,9 +1,11 @@
+const root = document.querySelector('body')
 const buttonAddNewTask = document.querySelector('.add')
 const taskTitle = document.querySelector('#taskTitle')
 const addTaskBeforeHere = document.querySelector('#addTaskBeforeHere')
 const boxContainTaskComplete = document.querySelector('.task.complete')
 const listTaskToDo = document.querySelector('.list-items.toDo')
 const listTaskComplete = document.querySelector('.list-items.complete')
+const themeSwitch = document.querySelector('.themeSwitch')
 const iconEdit = `<span class="material-icons">edit</span> <span class="material-icons hidden">pending</span>`
 const iconDelete = `<span class="material-icons">delete_outline</span>`
 const iconComplete = `<span class="material-icons">check_circle_outline</span>`
@@ -97,3 +99,10 @@ const createNewTask = () => {
 }
 
 buttonAddNewTask.addEventListener('click', createNewTask)
+
+const toggle_theme = () => {
+    themeSwitch.classList?.toggle("active")
+    root.classList?.toggle("active")
+}
+
+themeSwitch.addEventListener('click', toggle_theme)
